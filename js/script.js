@@ -104,7 +104,7 @@ payment.addEventListener('change', (e)=> {
     } else if (e.target.value === 'credit card'){
         creditInfo.style.display = '';
         paypalInfo.style.display = 'none';
-        btcInfo.style.display === 'none';
+        btcInfo.style.display = 'none';
 
     } else if (e.target.value === 'paypal'){
         creditInfo.style.display = 'none';
@@ -168,7 +168,7 @@ const ccNumValidation = () => {
     const ccNumInput = document.getElementById('cc-num').value;
     const ccTestOne = ccRegOne.test(ccNumInput);
     const ccTestTwo = ccRegTwo.test(ccNumInput);
-        if (payment.value === 'credit card'){
+        
             // if(ccTestOne){
                 if (ccTestTwo){
                     ccNum.style.borderColor = 'white';
@@ -188,14 +188,14 @@ const ccNumValidation = () => {
             //     divWrapper.appendChild(errorMesOne);
             //     return false;
             // }
-        } 
+       
 }
 const zipValidation = () => {
     const zip = document.getElementById('zip');
     const zipReg = /\d{5}/;
     const zipInput = document.getElementById('zip').value;
     const zipTest = zipReg.test(zipInput);
-        if (payment.value === 'credit card'){
+        
             if (zipTest){
                 zip.style.borderColor = 'white';
                 return true;
@@ -203,14 +203,14 @@ const zipValidation = () => {
                 zip.style.borderColor = 'red';
                 return false;
             }
-        }
+        
 }
 const cvvValidation = () => {
     const cvv = document.getElementById('cvv')
     const cvvReg = /\d{3}/;
     const cvvInput = document.getElementById('cvv').value;
     const cvvTest = cvvReg.test(cvvInput);
-        if (payment.value === 'credit card'){
+        
             if (cvvTest){
                 cvv.style.borderColor = 'white';
                 return true;
@@ -218,7 +218,7 @@ const cvvValidation = () => {
                 cvv.style.borderColor = 'red';
                 return false;
             }  
-        }   
+          
 }
 
 const titleInput = document.getElementById('title');
