@@ -64,7 +64,6 @@ checkboxes.addEventListener('change', (e) =>{
     let activitiesCost = clicked.getAttribute('data-cost');
     if (clicked.checked){
         cost = parseInt(cost, 10) + parseInt(activitiesCost,10);
-        console.log(cost);
         totalText.style.display = '';  
         totalText.textContent = `Total: $${cost}`
         activitiesCost = '';
@@ -154,45 +153,28 @@ const activityValidation = () => {
         }
         activitiesWrapper.style.color = 'red';
         return false;
-}
-
+};
 const ccNumValidation = () => {
     const ccNum = document.getElementById('cc-num');
     const divWrapper = document.getElementById('credit-card');
-    const ccRegOne = /\d{1,11}/;
-    const ccRegTwo = /\d{12,16}/;
+    const ccReg = /^\d{13,16}$/;
     const errorMesOne = document.createElement('p');
     errorMesOne.textContent = '';
     const errorMesTwo = document.createElement('p');
     errorMesTwo.textContent = '';
     const ccNumInput = document.getElementById('cc-num').value;
-    const ccTestOne = ccRegOne.test(ccNumInput);
-    const ccTestTwo = ccRegTwo.test(ccNumInput);
-        
-            // if(ccTestOne){
-                if (ccTestTwo){
+    const ccTest = ccReg.test(ccNumInput);
+                if (ccTest){
                     ccNum.style.borderColor = 'white';
                     return true;
                 }else {
                     ccNum.style.borderColor = 'red';
-                    // const errorMesTwo = document.createElement('p');
-                    // errorMesTwo.textContent = "Please enter a number between 13 and 16 digits long."
-                    // divWrapper.appendChild(errorMesTwo);
                     return false;
-                };
-            // }else{
-            //     const divCCNum = document.querySelector('#col-6 col')
-            //     ccNum.style.borderColor = 'red';
-            //     const errorMesOne = document.createElement('p');
-            //     errorMesOne.textContent = "Please enter a credit card number."
-            //     divWrapper.appendChild(errorMesOne);
-            //     return false;
-            // }
-       
-}
+                }            
+};
 const zipValidation = () => {
     const zip = document.getElementById('zip');
-    const zipReg = /\d{5}/;
+    const zipReg = /^\d{5}$/;
     const zipInput = document.getElementById('zip').value;
     const zipTest = zipReg.test(zipInput);
         
@@ -202,12 +184,11 @@ const zipValidation = () => {
             } else {
                 zip.style.borderColor = 'red';
                 return false;
-            }
-        
-}
+            }       
+};
 const cvvValidation = () => {
     const cvv = document.getElementById('cvv')
-    const cvvReg = /\d{3}/;
+    const cvvReg = /^\d{3}$/;
     const cvvInput = document.getElementById('cvv').value;
     const cvvTest = cvvReg.test(cvvInput);
         
@@ -217,8 +198,21 @@ const cvvValidation = () => {
             }else {
                 cvv.style.borderColor = 'red';
                 return false;
-            }  
-          
+            }        
+};
+const paymentLegend = document.querySelector('.pay legend');
+const paymentValidation = () => {
+    
+    if (payment.value === 'credit card'){
+        paymentLegend.style.color = 'rgba(6, 49, 68, 0.9)';
+        return true;
+    } else if(payment.value === 'paypal'|| payment.value === 'bitcoin'){
+        paymentLegend.style.color = 'rgba(6, 49, 68, 0.9)';
+        return true;
+    } else if (payment.value === 'select method'){
+        paymentLegend.style.color = 'red';
+        return false;
+    }
 }
 
 const titleInput = document.getElementById('title');
@@ -237,7 +231,12 @@ submit[0].addEventListener('click', (e)=> {
     if (!activityValidation){
         e.preventDefault(); 
     }
-    ccNumValidation();
+    paymentValidation();
+    if (!paymentValidation()){
+        e.preventDefault();
+    }
+    if (payment.value === 'credit card') {
+        ccNumValidation();
     if (!ccNumValidation()){
         e.preventDefault(); 
     }
@@ -248,5 +247,7 @@ submit[0].addEventListener('click', (e)=> {
     cvvValidation();
     if (!cvvValidation()){
         e.preventDefault();
-    }  
+    } 
+    }
+     
 });
