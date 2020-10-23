@@ -91,6 +91,7 @@ const payment = document.getElementById('payment');
 const creditInfo = document.getElementById('credit-card');
 const paypalInfo = document.getElementById('paypal');
 const btcInfo = document.getElementById('bitcoin');
+payment.value = 'credit card';
 creditInfo.style.display = '';
 paypalInfo.style.display = 'none';
 btcInfo.style.display = 'none';
